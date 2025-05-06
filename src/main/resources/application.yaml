@@ -1,0 +1,16 @@
+server:
+  port: 8080
+jwt:
+  secret: ${SECRET}
+  lifetime: 30m
+spring:
+  application:
+    name: task-tracker-backend-service
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+  liquibase:
+    change-log: 'classpath:db/changelog/db.changelog-master.xml'
+    default-schema: 'public'
+
