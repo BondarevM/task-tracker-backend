@@ -1,4 +1,4 @@
-package com.bondarev.auth_service;
+package com.bondarev.backend;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

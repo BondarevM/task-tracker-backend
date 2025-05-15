@@ -1,15 +1,15 @@
 server:
   port: 8080
 jwt:
-  secret: ${SECRET}
-  lifetime: 300m
+  secret: fdgdfg45234lekry6756lfm25151nkj6134ov
+  lifetime: 30m
 spring:
   application:
     name: task-tracker-backend-service
   datasource:
-    url: ${DB_URL}
-    username: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
+    url: 'jdbc:postgresql://localhost:5432/db'
+    username: 'postgres'
+    password: 'pass123'
   liquibase:
     change-log: 'classpath:db/changelog/db.changelog-master.xml'
     default-schema: 'public'

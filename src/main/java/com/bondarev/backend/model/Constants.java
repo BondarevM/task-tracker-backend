@@ -1,12 +1,13 @@
-package com.bondarev.auth_service.model;
+package com.bondarev.backend.model;
 
 public class Constants {
     public static final String USERS = "users";
     public static final String TASKS = "tasks";
     public static final String ID = "id";
     public static final String USER_ID = "user_id";
-    public static final String LOGIN = "login";
+    public static final String USERNAME = "username";
     public static final String PASSWORD = "password";
+    public static final String EMAIL = "email";
     public static final String TITLE = "title";
     public static final String TEXT = "text";
     public static final String STATUS = "status";

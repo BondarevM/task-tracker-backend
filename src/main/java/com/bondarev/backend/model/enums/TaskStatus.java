@@ -1,4 +1,4 @@
-package com.bondarev.auth_service.model.enums;
+package com.bondarev.backend.model.enums;
 
 public enum TaskStatus {
     CREATED,

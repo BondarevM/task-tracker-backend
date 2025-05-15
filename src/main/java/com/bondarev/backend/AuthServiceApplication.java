@@ -1,4 +1,4 @@
-package com.bondarev.auth_service;
+package com.bondarev.backend;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
