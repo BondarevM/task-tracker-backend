@@ -24,9 +24,9 @@ public class AuthController {
     private final JwtTokenUtil jwtTokenUtil;
     private final AuthenticationManager authenticationManager;
 
-    @GetMapping("/secured")
+    @GetMapping("/test")
     public String securedData() {
-        return "Secured data";
+        return "test 123";
     }
 
     @GetMapping("/api/info")

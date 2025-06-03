@@ -8,6 +8,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
@@ -18,6 +19,7 @@ import java.util.Collections;
 
 @Component
 @AllArgsConstructor
+@Slf4j
 public class JwtRequestFilter extends OncePerRequestFilter {
     private JwtTokenUtil jwtTokenUtil;
 
@@ -32,7 +34,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             try {
                 username = jwtTokenUtil.getUsername(jwt);
             } catch (ExpiredJwtException | SignatureException e) {
-                System.out.println(123); //todo handle exception
+                log.info(String.format("Invalid token: %s",jwt));
         }
 
 
