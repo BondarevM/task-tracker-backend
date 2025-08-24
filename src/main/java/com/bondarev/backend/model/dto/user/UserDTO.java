@@ -1,4 +1,4 @@
-package com.bondarev.backend.model.dto;
+package com.bondarev.backend.model.dto.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class JwtResponseDTO {
-    private String token;
+public class UserDTO {
+    private Integer id;
+    private String email;
+    private String username;
 }

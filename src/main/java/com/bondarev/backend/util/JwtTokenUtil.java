@@ -1,10 +1,10 @@
 package com.bondarev.backend.util;
 
+import com.bondarev.backend.model.entity.User;
 import io.jsonwebtoken.JwtParser;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.time.Duration;
@@ -19,15 +19,15 @@ public class JwtTokenUtil {
     @Value("${jwt.lifetime}")
     private Duration jwtLifetime;
 
-    public String generateToken(UserDetails userDetails) {
+    public String generateToken(User user) {
 
         Date issuedDate = new Date();
         Date expiredDate = new Date(issuedDate.getTime() + jwtLifetime.toMillis());
-
         return Jwts.builder()
-                .subject(userDetails.getUsername())
+                .subject(user.getUsername())
                 .issuedAt(issuedDate)
                 .expiration(expiredDate)
+                .claim("email", user.getEmail())
                 .signWith(Keys.hmacShaKeyFor(secret.getBytes()))
                 .compact();
     }

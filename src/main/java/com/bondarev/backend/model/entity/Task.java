@@ -16,7 +16,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 import java.time.Instant;
 
@@ -32,7 +31,6 @@ import static com.bondarev.backend.model.Constants.USER_ID;
 @Table(name = TASKS)
 @Getter
 @Setter
-@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -55,8 +53,18 @@ public class Task {
 
     @ManyToOne
     @JoinColumn(name = USER_ID)
-    private User user;
+    private User owner;
 
     @Column(name = DONE_AT)
     private Instant doneAt;
+
+    @Override
+    public String toString() {
+        return "Task{" +
+               "id=" + id +
+               ", title='" + title + '\'' +
+               ", text='" + text + '\'' +
+               ", status=" + status +
+               '}';
+    }
 }

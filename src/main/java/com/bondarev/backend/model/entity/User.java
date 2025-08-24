@@ -14,9 +14,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
-import java.util.Collection;
+import java.util.List;
 
 import static com.bondarev.backend.model.Constants.EMAIL;
 import static com.bondarev.backend.model.Constants.ID;
@@ -30,7 +29,6 @@ import static com.bondarev.backend.model.Constants.USER_ID;
 @Table(name = USERS)
 @Getter
 @Setter
-@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -51,5 +49,15 @@ public class User {
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = USER_ID)
-    Collection<Task> tasks;
+    List<Task> tasks;
+
+    @Override
+    public String toString() {
+        return "User{" +
+               "id=" + id +
+               ", username='" + username + '\'' +
+               ", password='" + password + '\'' +
+               ", email='" + email + '\'' +
+               '}';
+    }
 }

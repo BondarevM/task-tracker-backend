@@ -2,50 +2,35 @@ package com.bondarev.backend.controller;
 
 import com.bondarev.backend.model.dto.JwtRequestDTO;
 import com.bondarev.backend.model.dto.JwtResponseDTO;
-import com.bondarev.backend.model.dto.RegistrationUserDTO;
-import com.bondarev.backend.service.UserService;
-import com.bondarev.backend.util.JwtTokenUtil;
+import com.bondarev.backend.model.dto.user.RegistrationUserRequestDTO;
+import com.bondarev.backend.model.dto.user.UserDTO;
+import com.bondarev.backend.service.AuthService;
 import lombok.AllArgsConstructor;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.security.Principal;
 
 @RestController
 @AllArgsConstructor
+@RequestMapping("/api")
 public class AuthController {
-    private final UserService userService;
-    private final JwtTokenUtil jwtTokenUtil;
-    private final AuthenticationManager authenticationManager;
+    private final AuthService authService;
 
-    @GetMapping("/test")
-    public String securedData() {
-        return "test 123";
+    @GetMapping("/user")
+    public UserDTO userData() {
+        return authService.getUserInfo();
     }
 
-    @GetMapping("/api/info")
-    public String userData(Principal principal) {
-        return principal.getName();
+    @PostMapping("/user")
+    public UserDTO registration(@RequestBody RegistrationUserRequestDTO registrationUserRequestDTO) {
+        return authService.registration(registrationUserRequestDTO);
     }
-
 
     @PostMapping("/login")
-    public ResponseEntity<?> createAuthToken(@RequestBody JwtRequestDTO authRequest) {
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
-        UserDetails userDetails = userService.loadUserByUsername(authRequest.getUsername());
-        String token = jwtTokenUtil.generateToken(userDetails);
-        return ResponseEntity.ok(new JwtResponseDTO(token));
-    }
+    public JwtResponseDTO createAuthToken(@RequestBody JwtRequestDTO authRequest) {
+        return authService.authenticate(authRequest);
 
-    @PostMapping("/registration")
-    public ResponseEntity<?> registration(@RequestBody RegistrationUserDTO registrationUserDTO) {
-        userService.createNewUser(registrationUserDTO);
-        return ResponseEntity.ok("kek");
     }
 }

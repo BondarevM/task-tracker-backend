@@ -4,6 +4,9 @@
 
     <include file="/db/changelog/changeset/05-05-2025-initial-tables.xml" relativeToChangelogFile="false"/>
     <include file="/db/changelog/changeset/07-05-05-add-email-column.xml" relativeToChangelogFile="false"/>
+    <include file="/db/changelog/changeset/22-08-2025-add-title-userid-unique-constraint.xml"
+             relativeToChangelogFile="false"/>
+    <include file="/db/changelog/changeset/24-08-2025-change-text-column-size.xml" relativeToChangelogFile="false"/>
 
 
 </databaseChangeLog>
