@@ -1,6 +1,6 @@
 package com.bondarev.backend.config;
 
-import com.bondarev.backend.model.dto.user.UserDTO;
+import com.bondarev.backend.model.dto.kafka.MailMessageEvent;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,13 +20,14 @@ public class KafkaProducerConfig {
     private String boostrapServer;
 
     @Bean
-    public ProducerFactory<String, UserDTO> producerFactory(ObjectMapper objectMapper) {
+    public ProducerFactory<String, MailMessageEvent> producerFactory(ObjectMapper objectMapper) {
         Map<String, Object> configProperties = new HashMap<>();
         configProperties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, boostrapServer);
 
-        JsonSerializer<UserDTO> valueSerializer = new JsonSerializer<>(objectMapper);
-        valueSerializer.setAddTypeInfo(false);
         JsonSerializer<String> keySerializer = new JsonSerializer<>();
+        JsonSerializer<MailMessageEvent> valueSerializer = new JsonSerializer<>(objectMapper);
+        valueSerializer.setAddTypeInfo(false);
+
 
         return new DefaultKafkaProducerFactory<>(configProperties,
                 keySerializer,
@@ -34,7 +35,7 @@ public class KafkaProducerConfig {
     }
 
     @Bean
-    public KafkaTemplate<String, UserDTO> kafkaTemplate(ProducerFactory<String, UserDTO> producerFactory) {
+    public KafkaTemplate<String, MailMessageEvent> kafkaTemplate(ProducerFactory<String, MailMessageEvent> producerFactory) {
         return new KafkaTemplate<>(producerFactory);
     }
 }

@@ -11,10 +11,9 @@ import com.bondarev.backend.model.enums.TaskStatus;
 import com.bondarev.backend.repository.TaskRepository;
 import com.bondarev.backend.repository.UserRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -25,9 +24,10 @@ public class TaskService {
     private final UserRepository userRepository;
     private final TaskRepository taskRepository;
     private final TaskMapper taskMapper;
+    private final UserService userService;
 
     public List<TaskResponseDTO> getUserTasks() {
-        User currentUser = getCurrentUser();
+        User currentUser = userService.getCurrentUser();
         List<Task> tasks = taskRepository.findByOwner(currentUser);
 
         return tasks.stream()
@@ -37,7 +37,7 @@ public class TaskService {
     }
 
     public TaskResponseDTO createTask(TaskRequestDTO request) {
-        User user = getCurrentUser();
+        User user = userService.getCurrentUser();
         String title = request.getTitle();
         String text = request.getText();
 
@@ -57,7 +57,7 @@ public class TaskService {
     }
 
     public TaskResponseDTO updateTask(TaskRequestDTO request) {
-        User user = getCurrentUser();
+        User user = userService.getCurrentUser();
         String title = request.getTitle();
         String text = request.getText();
         TaskStatus status = request.getStatus();
@@ -68,15 +68,11 @@ public class TaskService {
         task.setTitle(title);
         task.setText(text);
         task.setStatus(status);
+        if (status.equals(TaskStatus.DONE)) {
+            task.setDoneAt(Instant.now());
+        }
 
         Task savedTask = taskRepository.save(task);
         return taskMapper.entityToDto(savedTask);
-    }
-
-    private User getCurrentUser() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
-        return userRepository.findByUsername(username).orElseThrow(
-                () -> new EntityNotFoundException(User.class, username));
     }
 }

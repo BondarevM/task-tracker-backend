@@ -1,7 +1,7 @@
 server:
-  port: 8080
+  port: ${TASK_TRACKER_BACKEND_PORT}
 jwt:
-  secret: ${SECRET}
+  secret: ${JWT_SECRET}
   lifetime: 300m
 spring:
   application:

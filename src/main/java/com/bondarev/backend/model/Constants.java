@@ -12,4 +12,6 @@ public class Constants {
     public static final String TEXT = "text";
     public static final String STATUS = "status";
     public static final String DONE_AT = "done_at";
+    public static final String EMAIL_SENDING_TASKS = "EMAIL_SENDING_TASKS";
+
 }

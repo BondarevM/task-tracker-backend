@@ -3,6 +3,7 @@ package com.bondarev.backend.controller;
 import com.bondarev.backend.exception.common.EntityAlreadyExistsException;
 import com.bondarev.backend.exception.common.EntityNotFoundException;
 import com.bondarev.backend.exception.common.InvalidTokenException;
+import com.bondarev.backend.exception.common.InvalidUserInfoException;
 import com.bondarev.backend.model.dto.TaskTrackerBackendExceptionDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
@@ -46,6 +47,15 @@ public class RestControllerAdvisor {
     @ExceptionHandler(value = {EntityNotFoundException.class})
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     public TaskTrackerBackendExceptionDTO handleEntityNotFoundException(EntityNotFoundException e) {
+        return TaskTrackerBackendExceptionDTO.builder()
+                .code(HttpStatus.BAD_REQUEST.value())
+                .message(e.getMessage())
+                .build();
+    }
+
+    @ExceptionHandler(value = {InvalidUserInfoException.class})
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+    public TaskTrackerBackendExceptionDTO handleInvalidUserInfoException(InvalidUserInfoException e) {
         return TaskTrackerBackendExceptionDTO.builder()
                 .code(HttpStatus.BAD_REQUEST.value())
                 .message(e.getMessage())
