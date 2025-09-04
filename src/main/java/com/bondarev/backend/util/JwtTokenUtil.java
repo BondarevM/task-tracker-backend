@@ -17,12 +17,12 @@ public class JwtTokenUtil {
     private String secret;
 
     @Value("${jwt.lifetime}")
-    private Duration jwtLifetime;
+    private Duration lifetime;
 
     public String generateToken(User user) {
 
         Date issuedDate = new Date();
-        Date expiredDate = new Date(issuedDate.getTime() + jwtLifetime.toMillis());
+        Date expiredDate = new Date(issuedDate.getTime() + lifetime.toMillis());
         return Jwts.builder()
                 .subject(user.getUsername())
                 .issuedAt(issuedDate)
