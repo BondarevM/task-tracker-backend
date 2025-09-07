@@ -9,32 +9,3 @@ spring:
 
 task-tracker-frontend:
   url: 'http://127.0.0.1:8081'
-
-
-#server:
-#  port: 8080
-#jwt:
-#  secret: fdgdfg45234lekry6756lfm25151nkj6134ov
-#  lifetime: 300m
-#spring:
-#  application:
-#    name: task-tracker-backend-service
-#  kafka:
-#    bootstrap-servers: 'localhost:9092'
-#  datasource:
-#    url: 'jdbc:postgresql://localhost:5432/db'
-#    username: 'postgres'
-#    password: 'pass123'
-#  liquibase:
-#    change-log: 'classpath:db/changelog/db.changelog-master.xml'
-#    default-schema: 'public'
-#
-#
-#
-#task-tracker-frontend:
-#  url: 'http://127.0.0.1:5500'
-#
-
-
-
-
