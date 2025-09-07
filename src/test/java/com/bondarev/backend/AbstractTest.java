@@ -14,7 +14,7 @@ import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.utility.DockerImageName;
 
-@SpringBootTest
+@SpringBootTest("spring.autoconfigure.exclude=org.springframework.boot.autoconfigure.kafka.KafkaAutoConfiguration")
 @Testcontainers
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
@@ -41,5 +41,4 @@ public class AbstractTest {
         userRepository.save(testUser);
 
     }
-
 }
