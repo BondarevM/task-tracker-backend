@@ -1,0 +1,7 @@
+FROM openjdk:21
+
+WORKDIR /app
+
+COPY target/task-tracker-backend-0.0.1-SNAPSHOT.jar /app/task-tracker-backend-0.0.1-SNAPSHOT.jar
+
+ENTRYPOINT ["java", "-jar", "/app/task-tracker-backend-0.0.1-SNAPSHOT.jar"]
